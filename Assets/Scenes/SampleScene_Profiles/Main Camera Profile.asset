@@ -32,7 +32,7 @@ MonoBehaviour:
     value: 1
   cloudsCenterPos:
     overrideState: 1
-    value: {x: 0, y: 2.79, z: 0}
+    value: {x: 0, y: 3.04, z: 0}
   cloudsSize:
     overrideState: 1
     value: {x: 50, y: 5.65, z: 50}
@@ -41,32 +41,32 @@ MonoBehaviour:
     value: 0
   stepCount:
     overrideState: 1
-    value: 54
+    value: 84.8
   stepLength:
     overrideState: 1
-    value: 0.37
+    value: 1
   cloudsNoiseTex:
     overrideState: 0
     value: {fileID: 11700000, guid: f96140ac6e0647b489b04ca0a2a43d96, type: 2}
     defaultState: 1
   cloudsNoiseScale:
-    overrideState: 1
-    value: 0.15
+    overrideState: 0
+    value: 0
   cloudsNoiseSpeed:
     overrideState: 1
     value: {x: 0, y: 0, z: 0.5}
   lightAbsorptionTowardSun:
     overrideState: 1
-    value: 2.09
+    value: 2.34
   lightAbsorptionThroughCloud:
     overrideState: 1
-    value: 4.17
+    value: 6.33
   colorA:
     overrideState: 1
-    value: {r: 0.92136884, g: 0.9528302, b: 0.9500927, a: 1}
+    value: {r: 1, g: 0.68598413, b: 0, a: 1}
   colorB:
     overrideState: 1
-    value: {r: 0.43467426, g: 0.68427366, b: 0.8301887, a: 1}
+    value: {r: 1, g: 0.9227282, b: 0, a: 1}
   colorOffsetA:
     overrideState: 1
     value: 0.34
@@ -75,7 +75,7 @@ MonoBehaviour:
     value: 0.82
   darknessThreshold:
     overrideState: 1
-    value: 0.8
+    value: 0
   phaseParams:
     overrideState: 1
     value: {x: 0.94, y: -1.44, z: 5.69, w: 0.97}
@@ -88,36 +88,45 @@ MonoBehaviour:
     value: {x: 7.75, y: -2.98, z: -4.02, w: 5.11}
   densityOffset:
     overrideState: 1
-    value: 1.73
+    value: -3.3
   edgeFadeDst:
     overrideState: 1
-    value: 5.03
+    value: 5.41
   densityMultiplier:
     overrideState: 1
-    value: 1.14
+    value: 4.83
   cloudsNoiseDetailTex:
     overrideState: 0
     value: {fileID: 11700000, guid: f96140ac6e0647b489b04ca0a2a43d96, type: 2}
     defaultState: 1
   cloudsNoiseDetailScale:
     overrideState: 1
-    value: 0.088
+    value: 0.646
   cloudsNoiseDetailSpeed:
     overrideState: 1
     value: {x: 0, y: 0, z: 2.43}
+  HeightUpDownKB:
+    overrideState: 1
+    value: {x: -4.24, y: 3.3, z: 0.99}
   cloudsNoiseDetailWeights:
     overrideState: 1
-    value: 9.13
+    value: 8.85
   noiseDetailWeight:
     overrideState: 1
-    value: 1.65
+    value: 2.76
   blueNoise:
     overrideState: 1
     value: {fileID: 2800000, guid: 3413e4a0a092a634a9b6fb9d92179ca6, type: 3}
     defaultState: 1
   blueNoiseStrength:
     overrideState: 1
-    value: 0.33
+    value: 1
   downSample:
     overrideState: 1
-    value: 16
+    value: 4
+  stepSizeKB1:
+    overrideState: 1
+    value: 0.05
+  stepSizeKB2:
+    overrideState: 1
+    value: 0.61

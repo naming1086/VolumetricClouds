@@ -30,6 +30,7 @@ Shader "Hidden/PostProcessing/RiceVolumetricClouds"
         half _CloudsNoiseTexScale;
         half3 _CloudsNoiseSpeed;
 
+        half3 _HeightUpDownKB;
         // shade
         // light
         half _LightAbsorptionTowardSun, _LightAbsorptionThroughCloud;
@@ -40,6 +41,9 @@ Shader "Hidden/PostProcessing/RiceVolumetricClouds"
 
         // hg phase
         half4 _PhaseParams;
+
+        half _stepSizeKB1;
+        half _stepSizeKB2;
 
         // shape
         sampler2D _WeatherMap;
@@ -124,6 +128,12 @@ Shader "Hidden/PostProcessing/RiceVolumetricClouds"
         {
             return new_min + (((original_value - original_min) / (original_max - original_min)) * (new_max - new_min));
         }
+        float getHeightGradient(float heightPercent) {
+            float heightGradientUp = _HeightUpDownKB.x * heightPercent + _HeightUpDownKB.y;
+            float heightGradientDown = _HeightUpDownKB.z * heightPercent;
+            float heightGradient = saturate(heightGradientDown) * saturate(heightGradientUp);
+            return heightGradient;
+        }
 
         // sample 3d tex
         float sampleDensity(float3 rayPos)
@@ -138,11 +148,13 @@ Shader "Hidden/PostProcessing/RiceVolumetricClouds"
             float4 weatherMap = tex2D(_WeatherMap, uv + _Time.x * _CloudsNoiseSpeed.xz);
 
             // soft bottom
-            float gMin = remap(weatherMap.x, 0, 1, 0.1, 0.6);
+            float gMin = saturate(remap( weatherMap.x, 0.0, 1.0, 0, 1));
+            //return gMin;
             float heightPercent = (rayPos.y - _CloudsBoundsMin.y) / size.y;
 
-            float heightGradient = saturate(remap(heightPercent, 0.0, weatherMap.r, 1, 0)) * saturate(remap(heightPercent, 0.0, gMin, 0, 1));
-
+            float heightGradient = saturate(remap(heightPercent, 0.0, weatherMap.x, 1, 0)) * saturate(remap(heightPercent, 0.0, gMin, 0, 1));
+            heightGradient *= gMin * getHeightGradient(heightPercent);
+             return heightGradient;
             // edge fade
             float dstEdgeX = min(_EdgeFadeDst, min(rayPos.x - _CloudsBoundsMin.x, _CloudsBoundsMax.x - rayPos.x));
             float dstEdgeZ = min(_EdgeFadeDst, min(rayPos.z - _CloudsBoundsMin.z, _CloudsBoundsMax.z - rayPos.z));
@@ -209,7 +221,7 @@ Shader "Hidden/PostProcessing/RiceVolumetricClouds"
             float sum = 1;
             float dstTravelled = blueNoise * _CloudsBlueNoiseStrength;
             float3 lightEnergy = 0;
-            [unroll(32)]
+            [unroll(50)]
             for (int i = 0; i < _CloudsRayStepCount; i++)
             {
                 if (dstTravelled < dstLimit)
@@ -227,6 +239,7 @@ Shader "Hidden/PostProcessing/RiceVolumetricClouds"
 
                     }
                 }
+                stepSize = _stepSizeKB1 * dstTravelled + _stepSizeKB2;
                 dstTravelled += stepSize;
             }
 

@@ -54,6 +54,8 @@ namespace UnityEngine.Rendering.PostProcessing
 		[Range(0, 1)]
 		public FloatParameter cloudsNoiseDetailScale = new FloatParameter {value = 1};
 		public Vector3Parameter cloudsNoiseDetailSpeed = new Vector3Parameter {value = Vector3.zero};
+		public Vector3Parameter HeightUpDownKB = new Vector3Parameter { value = Vector3.zero };
+
 		public FloatParameter cloudsNoiseDetailWeights = new FloatParameter { value = 1};
 		public FloatParameter noiseDetailWeight = new FloatParameter {value = 1};
 
@@ -65,6 +67,12 @@ namespace UnityEngine.Rendering.PostProcessing
 		// downsample
 		[Range(1, 16)]
 		public IntParameter downSample = new IntParameter {value = 4};
+
+		[Range(0, 2)]
+		public FloatParameter stepSizeKB1 = new FloatParameter { value = 1.0f };
+		[Range(0, 2)]
+		public FloatParameter stepSizeKB2 = new FloatParameter { value = 1.0f };
+
 	}
 
 	public class RiceVolumetricCloudsRenderer : PostProcessEffectRenderer<RiceVolumetricClouds>
@@ -97,6 +105,8 @@ namespace UnityEngine.Rendering.PostProcessing
 				sheet.properties.SetFloat("_CloudsStep", settings.step);
 				sheet.properties.SetFloat("_CloudsRayStepCount", settings.stepCount);
 				sheet.properties.SetFloat("_CloudsRayStepLength", settings.stepLength);
+				sheet.properties.SetFloat("_stepSizeKB1", settings.stepSizeKB1);
+				sheet.properties.SetFloat("_stepSizeKB2", settings.stepSizeKB2);
 
 				if (settings.cloudsNoiseTex.value != null)
 					sheet.properties.SetTexture("_CloudsNoiseTex", settings.cloudsNoiseTex);
@@ -129,6 +139,7 @@ namespace UnityEngine.Rendering.PostProcessing
 
 				sheet.properties.SetFloat("_CloudsNoiseDetailTexScale", settings.cloudsNoiseDetailScale);
 				sheet.properties.SetVector("_CloudsNoiseDetailSpeed", settings.cloudsNoiseDetailSpeed);
+				sheet.properties.SetVector("_HeightUpDownKB", settings.HeightUpDownKB);
 				sheet.properties.SetFloat("_ShapeNoiseDetailWeights", settings.cloudsNoiseDetailWeights);
 				sheet.properties.SetFloat("_NoiseDetailWeight", settings.noiseDetailWeight);
 
