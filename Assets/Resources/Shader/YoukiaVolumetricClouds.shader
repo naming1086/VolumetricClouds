@@ -26,7 +26,7 @@ Shader "Hidden/PostProcessing/RiceVolumetricClouds"
         half _CloudsRayStepCount;
         half _CloudsRayStepLength;
         
-        TEXTURE3D_SAMPLER3D(_CloudsNoiseTex, sampler_CloudsNoiseTex);
+        //TEXTURE3D_SAMPLER3D(_CloudsNoiseTex, sampler_CloudsNoiseTex);
         half _CloudsNoiseTexScale;
         half3 _CloudsNoiseSpeed;
 
@@ -50,7 +50,7 @@ Shader "Hidden/PostProcessing/RiceVolumetricClouds"
         half _DensityMultiplier;
 
         // detail
-        TEXTURE3D_SAMPLER3D(_CloudsNoiseTexDetail, sampler_CloudsNoiseTexDetail);
+        //TEXTURE3D_SAMPLER3D(_CloudsNoiseTexDetail, sampler_CloudsNoiseTexDetail);
         half _CloudsNoiseDetailTexScale;
         half3 _CloudsNoiseDetailSpeed;
         half _ShapeNoiseDetailWeights;
@@ -149,26 +149,29 @@ Shader "Hidden/PostProcessing/RiceVolumetricClouds"
             float edgeWeight = min(dstEdgeZ, dstEdgeX) / _EdgeFadeDst;
             heightGradient *= edgeWeight;
 
-            float3 uvw = rayPos * _CloudsNoiseTexScale;
-            uvw += _Time.x * _CloudsNoiseSpeed * 0.5f;
-            float4 noise = SAMPLE_TEXTURE3D(_CloudsNoiseTex, sampler_CloudsNoiseTex, uvw);
+            //float3 uvw = rayPos * _CloudsNoiseTexScale;
+            //uvw += _Time.x * _CloudsNoiseSpeed * 0.5f;
+            //float4 noise = SAMPLE_TEXTURE3D(_CloudsNoiseTex, sampler_CloudsNoiseTex, uvw);
 
-            float4 normalizeShapeWeights = _ShapeNoiseWeights / dot(_ShapeNoiseWeights, 1);
-            float shapeFBM = dot(noise, normalizeShapeWeights) * heightGradient;
-            float baseShapeDensity = shapeFBM + _DensityOffset * 0.01f;
+            //float4 normalizeShapeWeights = _ShapeNoiseWeights / dot(_ShapeNoiseWeights, 1);
+            //float shapeFBM = dot(noise, normalizeShapeWeights) * heightGradient;
+            //float baseShapeDensity = shapeFBM + _DensityOffset * 0.01f;
+            float baseShapeDensity = heightGradient;
+
+
             // return baseShapeDensity;
 
             // detail
             if (baseShapeDensity > 0)
             {
-                float3 uvwDetail = rayPos * _CloudsNoiseDetailTexScale;
-                uvwDetail += _Time.x * _CloudsNoiseDetailSpeed;
-                float4 detailNoise = SAMPLE_TEXTURE3D(_CloudsNoiseTexDetail, sampler_CloudsNoiseTexDetail, uvwDetail);
-                float detailFBM = pow(detailNoise.r, _ShapeNoiseDetailWeights);
-                float oneMinusShape = 1 - baseShapeDensity;
-                float detailErodeWeight = oneMinusShape * oneMinusShape * oneMinusShape;
-                float cloudDensity = baseShapeDensity - detailFBM * detailErodeWeight * _NoiseDetailWeight;
-
+                //float3 uvwDetail = rayPos * _CloudsNoiseDetailTexScale;
+                //uvwDetail += _Time.x * _CloudsNoiseDetailSpeed;
+                //float4 detailNoise = SAMPLE_TEXTURE3D(_CloudsNoiseTexDetail, sampler_CloudsNoiseTexDetail, uvwDetail);
+                //float detailFBM = pow(detailNoise.r, _ShapeNoiseDetailWeights);
+                //float oneMinusShape = 1 - baseShapeDensity;
+                //float detailErodeWeight = oneMinusShape * oneMinusShape * oneMinusShape;
+                //float cloudDensity = baseShapeDensity - detailFBM * detailErodeWeight * _NoiseDetailWeight;
+                float cloudDensity = baseShapeDensity;
                 return saturate(cloudDensity * _DensityMultiplier);
             }
 

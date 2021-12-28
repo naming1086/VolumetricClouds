@@ -32,26 +32,26 @@ MonoBehaviour:
     value: 1
   cloudsCenterPos:
     overrideState: 1
-    value: {x: 0, y: 9, z: 0}
+    value: {x: 0, y: 2.79, z: 0}
   cloudsSize:
     overrideState: 1
-    value: {x: 50, y: 2, z: 50}
+    value: {x: 50, y: 5.65, z: 50}
   step:
     overrideState: 1
-    value: -2
+    value: 0
   stepCount:
     overrideState: 1
-    value: 26.3
+    value: 54
   stepLength:
     overrideState: 1
-    value: 0.662
+    value: 0.37
   cloudsNoiseTex:
-    overrideState: 1
+    overrideState: 0
     value: {fileID: 11700000, guid: f96140ac6e0647b489b04ca0a2a43d96, type: 2}
     defaultState: 1
   cloudsNoiseScale:
     overrideState: 1
-    value: 0.08
+    value: 0.15
   cloudsNoiseSpeed:
     overrideState: 1
     value: {x: 0, y: 0, z: 0.5}
@@ -75,7 +75,7 @@ MonoBehaviour:
     value: 0.82
   darknessThreshold:
     overrideState: 1
-    value: 0.151
+    value: 0.8
   phaseParams:
     overrideState: 1
     value: {x: 0.94, y: -1.44, z: 5.69, w: 0.97}
@@ -96,12 +96,12 @@ MonoBehaviour:
     overrideState: 1
     value: 1.14
   cloudsNoiseDetailTex:
-    overrideState: 1
+    overrideState: 0
     value: {fileID: 11700000, guid: f96140ac6e0647b489b04ca0a2a43d96, type: 2}
     defaultState: 1
   cloudsNoiseDetailScale:
     overrideState: 1
-    value: 0.05
+    value: 0.088
   cloudsNoiseDetailSpeed:
     overrideState: 1
     value: {x: 0, y: 0, z: 2.43}
@@ -117,7 +117,7 @@ MonoBehaviour:
     defaultState: 1
   blueNoiseStrength:
     overrideState: 1
-    value: 0.544
+    value: 0.33
   downSample:
     overrideState: 1
-    value: 1
+    value: 16
